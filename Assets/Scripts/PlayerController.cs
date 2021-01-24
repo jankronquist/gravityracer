@@ -16,9 +16,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D body;
     private bool started;
     private bool alive = true;
+    private AudioSource audioSource;
 
     private void Start() {
         this.body = this.GetComponent<Rigidbody2D>();
+        this.audioSource = this.GetComponent<AudioSource>();
         body.gravityScale = 0;
     }
 
@@ -33,6 +35,9 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.Space)) {
                 body.AddForce(thrust * this.transform.up, ForceMode2D.Impulse);
                 mainSmoke.Emit(1);
+                this.audioSource.volume = 1;
+            } else {
+                this.audioSource.volume = 0;
             }
             if (Input.GetKey(KeyCode.LeftArrow)) {
                 body.rotation += rotationSpeed;
