@@ -11,9 +11,11 @@ public class PlayerController : MonoBehaviour
     public GameEvent playerDied;
     public ParticleSystem explosion;
     public Rigidbody2D shard;
+    public ParticleSystem mainSmoke;
 
     private Rigidbody2D body;
     private bool started;
+    private bool alive = true;
 
     private void Start() {
         this.body = this.GetComponent<Rigidbody2D>();
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        mainSmoke.transform.position = this.transform.position;
         if (!started && Input.anyKey) {
             started = true;
             body.gravityScale = 1;
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour
         if (started) {
             if (Input.GetKey(KeyCode.Space)) {
                 body.AddForce(thrust * this.transform.up, ForceMode2D.Impulse);
+                mainSmoke.Emit(1);
             }
             if (Input.GetKey(KeyCode.LeftArrow)) {
                 body.rotation += rotationSpeed;
@@ -39,17 +43,22 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        playerDied.Raise();
-        // TODO: add shards
-        ParticleSystem p = Instantiate(explosion, this.transform.position, Quaternion.identity);
-        p.GetComponent<Rigidbody2D>().velocity = body.velocity;
-        for (int i = 0; i < 5; i++) {
-            Rigidbody2D s = Instantiate(shard, this.transform.position, Quaternion.identity);
-            Vector2 dir = Random.insideUnitCircle;
-            s.transform.localScale *= Random.Range(0.8f, 1.2f);
-            s.velocity = body.velocity + dir;
-            s.position += 2f * dir;
+        if (alive) {
+            alive = false;
+            Debug.Log("player collision with: " + collision.gameObject.name);
+            playerDied.Raise();
+            ParticleSystem p = Instantiate(explosion, this.transform.position, Quaternion.identity);
+            p.GetComponent<Rigidbody2D>().velocity = body.velocity;
+            for (int i = 0; i < 5; i++) {
+                Rigidbody2D s = Instantiate(shard, this.transform.position, Quaternion.identity);
+                Vector2 dir = Random.insideUnitCircle;
+                s.transform.localScale *= Random.Range(0.8f, 1.2f);
+                s.velocity = body.velocity + dir;
+                s.position += 2f * dir;
+            }
+            mainSmoke.transform.parent = this.transform.parent;
+            mainSmoke.GetComponent<TimedDestroy>().DestroyAfterSeconds(3);
+            Destroy(this.gameObject);
         }
-        Destroy(this.gameObject);
     }
 }
