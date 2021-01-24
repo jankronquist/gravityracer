@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public float thrust;
     public float rotationSpeed;
     public GameEvent playerDied;
+    public FloatGameEvent raceStarted;
+    public FloatGameEvent raceFinished;
     public ParticleSystem explosion;
     public Rigidbody2D shard;
     public ParticleSystem mainSmoke;
@@ -17,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D body;
     private bool started;
     private bool alive = true;
+    private bool finished = false;
     private AudioSource audioSource;
 
     private void Start() {
@@ -31,6 +34,7 @@ public class PlayerController : MonoBehaviour
         if (!started && Input.anyKey) {
             started = true;
             body.gravityScale = 1;
+            raceStarted.Raise(Time.time);
         }
         if (started) {
             if (Input.GetKey(KeyCode.Space)) {
@@ -50,21 +54,28 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (alive) {
-            alive = false;
-            Debug.Log("player collision with: " + collision.gameObject.name);
-            playerDied.Raise();
-            ParticleSystem p = Instantiate(explosion, this.transform.position, Quaternion.identity);
-            p.GetComponent<Rigidbody2D>().velocity = body.velocity;
-            for (int i = 0; i < 5; i++) {
-                Rigidbody2D s = Instantiate(shard, this.transform.position, Quaternion.identity);
-                Vector2 dir = Random.insideUnitCircle;
-                s.transform.localScale *= Random.Range(0.8f, 1.2f);
-                s.velocity = body.velocity + dir;
-                s.position += 2f * dir;
+            if (collision.tag == "Checkpoint") {
+                //if (!finished) {
+                //    finished = true;
+                //    raceFinished.Raise(Time.time);
+                //}
+            } else {
+                alive = false;
+                Debug.Log("player collision with: " + collision.gameObject.name);
+                playerDied.Raise();
+                ParticleSystem p = Instantiate(explosion, this.transform.position, Quaternion.identity);
+                p.GetComponent<Rigidbody2D>().velocity = body.velocity;
+                for (int i = 0; i < 5; i++) {
+                    Rigidbody2D s = Instantiate(shard, this.transform.position, Quaternion.identity);
+                    Vector2 dir = Random.insideUnitCircle;
+                    s.transform.localScale *= Random.Range(0.8f, 1.2f);
+                    s.velocity = body.velocity + dir;
+                    s.position += 2f * dir;
+                }
+                mainSmoke.transform.parent = this.transform.parent;
+                mainSmoke.GetComponent<TimedDestroy>().DestroyAfterSeconds(3);
+                Destroy(this.gameObject);
             }
-            mainSmoke.transform.parent = this.transform.parent;
-            mainSmoke.GetComponent<TimedDestroy>().DestroyAfterSeconds(3);
-            Destroy(this.gameObject);
         }
     }
 }

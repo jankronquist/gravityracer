@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7903495651826875146}
   m_Layer: 0
   m_Name: Quad (2)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 5429956032016381941}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -299,6 +299,8 @@ MonoBehaviour:
   thrust: 0.6
   rotationSpeed: 4
   playerDied: {fileID: 11400000, guid: bc0b9851079b345768ceef80409a2d82, type: 2}
+  raceStarted: {fileID: 11400000, guid: c7d9159f919024a5d96db72981c034e8, type: 2}
+  raceFinished: {fileID: 11400000, guid: e623c36f6ba0f41578971218b8a5338a, type: 2}
   explosion: {fileID: 619422009371135568, guid: ecef6996689ef4f4cb005ef870218cb5, type: 3}
   shard: {fileID: 2399144543238732668, guid: b557da2de7faf48f68b34c3360b8a5a5, type: 3}
   mainSmoke: {fileID: 2327822726508131188}
@@ -444,7 +446,7 @@ GameObject:
   - component: {fileID: 8876867197853186239}
   m_Layer: 0
   m_Name: Quad (1)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5350,7 +5352,7 @@ GameObject:
   - component: {fileID: 297599354966087574}
   m_Layer: 0
   m_Name: Quad
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
