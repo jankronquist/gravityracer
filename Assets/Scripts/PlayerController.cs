@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem explosion;
     public Rigidbody2D shard;
     public ParticleSystem mainSmoke;
+    public float thrustVolume = 0.6f;
 
     private Rigidbody2D body;
     private bool started;
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.Space)) {
                 body.AddForce(thrust * this.transform.up, ForceMode2D.Impulse);
                 mainSmoke.Emit(1);
-                this.audioSource.volume = 1;
+                this.audioSource.volume = thrustVolume;
             } else {
                 this.audioSource.volume = 0;
             }
