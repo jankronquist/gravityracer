@@ -12,8 +12,8 @@ public class TutorialText : MonoBehaviour
     private TextMeshProUGUI label;
 
     void Start() {
-        alive.AddListener(AliveChanged);
         label = this.GetComponent<TextMeshProUGUI>();
+        alive.AddListener(AliveChanged);
     }
 
     private void OnDestroy() {

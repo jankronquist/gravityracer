@@ -22,11 +22,14 @@ public class Checkpoint : MonoBehaviour {
     void Start() {
         line = this.GetComponent<SpriteRenderer>();
         collider = this.GetComponent<BoxCollider2D>();
+        ResetCheckpoint();
     }
 
     public void ResetCheckpoint() {
-        line.enabled = true;
-        collider.enabled = true;
+        if (line != null) {
+            line.enabled = true;
+            collider.enabled = true;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
