@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using ScriptableObjectArchitecture;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
