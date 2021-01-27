@@ -11,7 +11,6 @@ public class RaceTimer : MonoBehaviour {
     private float startTime;
     private float totalTime;
     private bool racing;
-    private bool finished;
 
     void Start() {
         ResetTimer();
@@ -20,7 +19,6 @@ public class RaceTimer : MonoBehaviour {
     public void ResetTimer() {
         label.text = "";
         racing = false;
-        finished = false;
     }
 
     public void RaceStarted(float t) {
@@ -29,19 +27,15 @@ public class RaceTimer : MonoBehaviour {
     }
 
     public void RaceFinished(float t) {
-        finished = true;
-        totalTime = t - startTime;
-        raceTime.SetValue(totalTime);
+        racing = false;
+        totalTime = t;
+        label.text = "";
     }
 
     void FixedUpdate() {
         if (racing) {
-            if (finished) {
-                label.text = totalTime.ToString("F2");
-            } else {
-                raceTime.Value = (Time.time - startTime);
-                label.text = (Time.time - startTime).ToString("F2");
-            }
+            raceTime.Value = (Time.time - startTime);
+            label.text = (Time.time - startTime).ToString("F2");
         }
     }
 }

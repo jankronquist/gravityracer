@@ -14,17 +14,22 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D shard;
     public ParticleSystem mainSmoke;
     public float thrustVolume = 0.6f;
+    public BoolVariable alive;
 
     private Rigidbody2D body;
     private bool started;
-    private bool alive = true;
-    private bool finished = false;
     private AudioSource audioSource;
 
     private void Start() {
         this.body = this.GetComponent<Rigidbody2D>();
         this.audioSource = this.GetComponent<AudioSource>();
         body.gravityScale = 0;
+        alive.Value = true;
+    }
+
+    public void Destroy() {
+        alive.Value = false;
+        Destroy(this.gameObject);
     }
 
     void FixedUpdate()
@@ -52,14 +57,10 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (alive) {
+        if (alive.Value) {
             if (collision.tag == "Checkpoint") {
-                //if (!finished) {
-                //    finished = true;
-                //    raceFinished.Raise(Time.time);
-                //}
             } else {
-                alive = false;
+                alive.Value = false;
                 Debug.Log("player collision with: " + collision.gameObject.name);
                 playerDied.Raise();
                 ParticleSystem p = Instantiate(explosion, this.transform.position, Quaternion.identity);
@@ -69,7 +70,7 @@ public class PlayerController : MonoBehaviour
                     Vector2 dir = Random.insideUnitCircle;
                     s.transform.localScale *= Random.Range(0.8f, 1.2f);
                     s.velocity = body.velocity + dir;
-                    s.position += 2f * dir;
+                    s.position += 1f * dir;
                 }
                 mainSmoke.transform.parent = this.transform.parent;
                 mainSmoke.GetComponent<TimedDestroy>().DestroyAfterSeconds(3);

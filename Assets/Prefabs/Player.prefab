@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 4724975569931521355}
   - component: {fileID: 2667084030755551357}
   - component: {fileID: 5429956032016381941}
+  - component: {fileID: 5455388144982342262}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -235,6 +236,7 @@ MonoBehaviour:
   shard: {fileID: 2399144543238732668, guid: b557da2de7faf48f68b34c3360b8a5a5, type: 3}
   mainSmoke: {fileID: 2327822726508131188}
   thrustVolume: 0.4
+  alive: {fileID: 11400000, guid: abdb4a6a87f324ffc9d6e7ac7916a155, type: 2}
 --- !u!60 &2667084030755551357
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -368,6 +370,41 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5455388144982342262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4724975569931521349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d803b71d5100f2f43b3d93b8d7210303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeveloperDescription:
+    _value: 
+  _showDebugFields: 0
+  _enableGizmoDebugging: 1
+  _debugColor: {r: 0, g: 1, b: 1, a: 1}
+  _previouslyRegisteredEvent: {fileID: 0}
+  _event: {fileID: 11400000, guid: e623c36f6ba0f41578971218b8a5338a, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4724975569931521355}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Destroy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _debugValue: 0
 --- !u!1 &5068842670546700587
 GameObject:
   m_ObjectHideFlags: 0
