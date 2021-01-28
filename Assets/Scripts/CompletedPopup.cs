@@ -13,14 +13,12 @@ public class CompletedPopup : MonoBehaviour
     private bool visible;
 
     public void OnRaceCompleted(float t) {
-        Debug.Log("OnRaceCompleted: " + t);
         label.text = "Total time";
         timeText.text = t.ToString("F2");
         animator.Play("Popup");
     }
 
     public void OnRaceRecord(float t) {
-        Debug.Log("OnRaceRecord: " + t);
         label.text = "New record!";
     }
 

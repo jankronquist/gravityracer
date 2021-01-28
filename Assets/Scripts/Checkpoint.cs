@@ -33,7 +33,6 @@ public class Checkpoint : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
-        Debug.Log("Checkpoint colli:" + collision.name + " tag=" + collision.tag);
         if (collision.tag == "Player") {
             line.enabled = false;
             collider.enabled = false;
